@@ -1,0 +1,12 @@
+{
+  "name": "tienda-de-ropa",
+  "version": "1.0.0",
+  "description": "Tienda de ropa en línea con catálogo, compras, usuarios y seguimiento de pedidos en tiempo real.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["ecommerce", "tienda", "ropa", "pedidos", "seguimiento"],
+  "author": "",
+  "license": "MIT"
+}

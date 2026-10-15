@@ -1,0 +1,492 @@
+{
+  "users": [
+    {
+      "id": "usr-demo1",
+      "name": "Cliente Demo",
+      "email": "cliente@demo.com",
+      "password": "9820b6ba36011a05cfee508f5ad25363:7e2978b74283df3db80c69b46eaad2bf0d08f86a5e359620d6dbfd54cdb683231e0c673411e2e714efd7f954a3c20b3872061dc01a9764f32460a4d4212fd5f2",
+      "createdAt": "2026-10-13T23:55:46.191Z"
+    },
+    {
+      "id": "usr-1791935783574",
+      "name": "Maria Gomez",
+      "email": "maria1791935783558@test.com",
+      "password": "8ccc77d4d7ca283d98083b2dcb751dbd:9b4845df47d7cc2b237ee1da5f934d48164bdae35a6dffcf0020afd3f1a6c5f5e627e1b91ea84ea4bd646f632d11e2ca55732248cbf5c020013355be60645d05",
+      "createdAt": "2026-10-13T23:56:23.640Z"
+    }
+  ],
+  "products": [
+    {
+      "id": "prod-1",
+      "name": "Chaqueta Denim Vintage Oversize",
+      "category": "Hombre",
+      "subCategory": "Chaquetas",
+      "price": 189900,
+      "originalPrice": 229900,
+      "rating": 4.9,
+      "reviewsCount": 68,
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "Azul Clásico",
+        "Negro Lavado"
+      ],
+      "stock": 14,
+      "tag": "Más Vendido",
+      "image": "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=800&q=80",
+      "description": "Chaqueta de mezclilla premium 100% algodón con efecto deslavado artesanal y corte oversize moderno. Botones metálicos reforzados y bolsillos frontales funcionales."
+    },
+    {
+      "id": "prod-2",
+      "name": "Vestido Midi Seda Floral",
+      "category": "Mujer",
+      "subCategory": "Vestidos",
+      "price": 165000,
+      "originalPrice": 195000,
+      "rating": 4.8,
+      "reviewsCount": 54,
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L"
+      ],
+      "colors": [
+        "Estampado Floral",
+        "Terracota"
+      ],
+      "stock": 10,
+      "tag": "Nuevo",
+      "image": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=800&q=80",
+      "description": "Vestido elegante confeccionado en satén suave con escote en V y falda con vuelo ligero. Perfecto para ocasiones especiales, tardes de verano o eventos casuales."
+    },
+    {
+      "id": "prod-3",
+      "name": "Hoodie Minimalista Unisex",
+      "category": "Hombre",
+      "subCategory": "Buzos",
+      "price": 129000,
+      "originalPrice": 149000,
+      "rating": 4.7,
+      "reviewsCount": 112,
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "colors": [
+        "Gris Jaspeado",
+        "Negro",
+        "Verde Oliva"
+      ],
+      "stock": 25,
+      "tag": "Favorito",
+      "image": "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80",
+      "description": "Sudadera con capota en algodón perchado pesado de 320 gramos. Interior extrasuave con bolsillo canguro y cordones ajustables con punteras metálicas."
+    },
+    {
+      "id": "prod-4",
+      "name": "Pantalón Cargo Táctico Urbano",
+      "category": "Hombre",
+      "subCategory": "Pantalones",
+      "price": 145000,
+      "originalPrice": 169000,
+      "rating": 4.6,
+      "reviewsCount": 43,
+      "sizes": [
+        "30",
+        "32",
+        "34",
+        "36"
+      ],
+      "colors": [
+        "Negro",
+        "Kaki",
+        "Verde Militar"
+      ],
+      "stock": 17,
+      "tag": "Tendencia",
+      "image": "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=800&q=80",
+      "description": "Pantalón resistente con 6 bolsillos utilitarios, pretina elástica con pasadores y cordón de ajuste en los tobillos para un ajuste tipo jogger o recto."
+    },
+    {
+      "id": "prod-5",
+      "name": "Blusa Satinada Elegante Manga Larga",
+      "category": "Mujer",
+      "subCategory": "Blusas",
+      "price": 110000,
+      "originalPrice": 135000,
+      "rating": 4.9,
+      "reviewsCount": 77,
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L"
+      ],
+      "colors": [
+        "Champagne",
+        "Verde Esmeralda",
+        "Negro"
+      ],
+      "stock": 12,
+      "tag": "Elegante",
+      "image": "https://images.unsplash.com/photo-1604176354204-9268737828e4?auto=format&fit=crop&w=800&q=80",
+      "description": "Blusa formal en tejido satinado con caída fluida. Puños abotonados y cuello clásico estilizado. Ideal para la oficina o salidas nocturnas."
+    },
+    {
+      "id": "prod-6",
+      "name": "Sneakers Urbanos Classic White",
+      "category": "Calzado",
+      "subCategory": "Zapatillas",
+      "price": 249000,
+      "originalPrice": 289000,
+      "rating": 4.9,
+      "reviewsCount": 130,
+      "sizes": [
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43"
+      ],
+      "colors": [
+        "Blanco Puro",
+        "Blanco/Gris"
+      ],
+      "stock": 20,
+      "tag": "Imprescindible",
+      "image": "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=800&q=80",
+      "description": "Tenis de cuero sintético premium transpirable con suela de goma vulcanizada antideslizante y plantilla acolchada memory foam para máxima comodidad todo el día."
+    },
+    {
+      "id": "prod-7",
+      "name": "Jeans Mom Fit Tiro Alto",
+      "category": "Mujer",
+      "subCategory": "Jeans",
+      "price": 139900,
+      "originalPrice": 169000,
+      "rating": 4.8,
+      "reviewsCount": 89,
+      "sizes": [
+        "6",
+        "8",
+        "10",
+        "12",
+        "14"
+      ],
+      "colors": [
+        "Azul Medio",
+        "Celeste Claro"
+      ],
+      "stock": 16,
+      "tag": "Más Vendido",
+      "image": "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=800&q=80",
+      "description": "Pantalón en denim 100% rígido con corte relajado en caderas y muslos y pernera cónica. Realza la figura de manera natural y confortable."
+    },
+    {
+      "id": "prod-8",
+      "name": "Camiseta Básica de Algodón Pima",
+      "category": "Hombre",
+      "subCategory": "Camisetas",
+      "price": 59900,
+      "originalPrice": 75000,
+      "rating": 4.9,
+      "reviewsCount": 195,
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "Blanco",
+        "Negro",
+        "Azul Marino",
+        "Gris"
+      ],
+      "stock": 39,
+      "tag": "Básico Esencial",
+      "image": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80",
+      "description": "Camiseta de cuello redondo confeccionada con el algodón pima más suave. No encoge, mantiene su color tras múltiples lavadas y ofrece una sensación fresca."
+    },
+    {
+      "id": "prod-9",
+      "name": "Bolso Tote Bag Cuero Vegano",
+      "category": "Accesorios",
+      "subCategory": "Bolsos",
+      "price": 119000,
+      "originalPrice": 149000,
+      "rating": 4.7,
+      "reviewsCount": 38,
+      "sizes": [
+        "Única"
+      ],
+      "colors": [
+        "Café Caramelo",
+        "Negro Mate"
+      ],
+      "stock": 14,
+      "tag": "Nuevo",
+      "image": "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80",
+      "description": "Bolso espacioso con compartimiento acolchado para laptop de hasta 14 pulgadas, asas reforzadas al hombro y cierre con cremallera segura."
+    },
+    {
+      "id": "prod-10",
+      "name": "Gafas de Sol Retro Polarizadas",
+      "category": "Accesorios",
+      "subCategory": "Lentes",
+      "price": 79000,
+      "originalPrice": 99000,
+      "rating": 4.8,
+      "reviewsCount": 62,
+      "sizes": [
+        "Única"
+      ],
+      "colors": [
+        "Carey",
+        "Negro Clásico"
+      ],
+      "stock": 22,
+      "tag": "Accesorio",
+      "image": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=800&q=80",
+      "description": "Lentes polarizados con protección UV400 completa. Marco ligero de acetato resistente con bisagras flexibles de acero inoxidable."
+    },
+    {
+      "id": "prod-11",
+      "name": "Camisa Oxford Regular Fit",
+      "category": "Hombre",
+      "subCategory": "Camisas",
+      "price": 135000,
+      "originalPrice": 159000,
+      "rating": 4.7,
+      "reviewsCount": 47,
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "Azul Cielo",
+        "Blanco"
+      ],
+      "stock": 17,
+      "tag": "Formal/Casual",
+      "image": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80",
+      "description": "Camisa tejida con textura Oxford clásica, cuello con botones y bolsillo en el pecho. Versátil tanto para trajes informales como jeans de fin de semana."
+    },
+    {
+      "id": "prod-12",
+      "name": "Botines de Cuero Chelsea",
+      "category": "Calzado",
+      "subCategory": "Botas",
+      "price": 289000,
+      "originalPrice": 329000,
+      "rating": 4.9,
+      "reviewsCount": 81,
+      "sizes": [
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42"
+      ],
+      "colors": [
+        "Negro",
+        "Café Oscuro"
+      ],
+      "stock": 9,
+      "tag": "Premium",
+      "image": "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?auto=format&fit=crop&w=800&q=80",
+      "description": "Botines botín chelsea con paneles elásticos laterales y tirador posterior para fácil calce. Forro interior de cuero transpirable y suela con agarre."
+    }
+  ],
+  "orders": [
+    {
+      "id": "ORD-20558",
+      "trackingNumber": "ORD-20558",
+      "userId": null,
+      "items": [
+        {
+          "productId": "prod-4",
+          "name": "Pantalón Cargo Táctico Urbano",
+          "price": 145000,
+          "quantity": 1,
+          "size": "30",
+          "color": "Negro",
+          "image": "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=800&q=80"
+        }
+      ],
+      "subtotal": 145000,
+      "shippingFee": 12000,
+      "total": 157000,
+      "shipping": {
+        "fullName": "Cliente Demo",
+        "email": "cliente@demo.com",
+        "phone": "31586566006",
+        "address": "calle 6a 17 22",
+        "city": "medellin",
+        "notes": "primer piso"
+      },
+      "paymentMethod": "Pago Contra Entrega",
+      "status": "Recibido",
+      "createdAt": "2026-10-14T00:02:24.670Z",
+      "estimatedDelivery": "viernes, 16 de octubre de 2026",
+      "courier": "Coordinadora / Servientrega Express",
+      "history": [
+        {
+          "status": "Recibido",
+          "title": "Pedido recibido con éxito",
+          "description": "Hemos confirmado el pago y registrado tu compra en el sistema.",
+          "timestamp": "2026-10-14T00:02:24.670Z"
+        }
+      ]
+    },
+    {
+      "id": "ORD-82387",
+      "trackingNumber": "ORD-82387",
+      "userId": "usr-demo1",
+      "items": [
+        {
+          "productId": "prod-8",
+          "name": "Camiseta Básica de Algodón Pima",
+          "price": 59900,
+          "quantity": 1,
+          "size": "M",
+          "color": "Negro",
+          "image": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80"
+        }
+      ],
+      "subtotal": 59900,
+      "shippingFee": 12000,
+      "total": 71900,
+      "shipping": {
+        "fullName": "Cliente Demo",
+        "email": "cliente@demo.com",
+        "phone": "31586566006",
+        "address": "calle 6a 17 22",
+        "city": "medellin",
+        "notes": "primer piso"
+      },
+      "paymentMethod": "Pago Contra Entrega",
+      "status": "Recibido",
+      "createdAt": "2026-10-14T00:01:09.682Z",
+      "estimatedDelivery": "viernes, 16 de octubre de 2026",
+      "courier": "Coordinadora / Servientrega Express",
+      "history": [
+        {
+          "status": "Recibido",
+          "title": "Pedido recibido con éxito",
+          "description": "Hemos confirmado el pago y registrado tu compra en el sistema.",
+          "timestamp": "2026-10-14T00:01:09.682Z"
+        }
+      ]
+    },
+    {
+      "id": "ORD-88696",
+      "trackingNumber": "ORD-88696",
+      "userId": "usr-1791935783574",
+      "items": [
+        {
+          "productId": "prod-1",
+          "name": "Chaqueta Denim",
+          "price": 189900,
+          "quantity": 1,
+          "size": "M",
+          "color": "Azul",
+          "image": ""
+        }
+      ],
+      "subtotal": 189900,
+      "shippingFee": 0,
+      "total": 189900,
+      "shipping": {
+        "fullName": "Maria Gomez",
+        "email": "maria1791935783558@test.com",
+        "phone": "3109998877",
+        "address": "Cra 15 # 85-20",
+        "city": "Bogota"
+      },
+      "paymentMethod": "Tarjeta de Crédito",
+      "status": "En preparación",
+      "createdAt": "2026-10-13T23:56:23.761Z",
+      "estimatedDelivery": "viernes, 16 de octubre de 2026",
+      "courier": "Coordinadora / Servientrega Express",
+      "history": [
+        {
+          "status": "Recibido",
+          "title": "Pedido recibido con éxito",
+          "description": "Hemos confirmado el pago y registrado tu compra en el sistema.",
+          "timestamp": "2026-10-13T23:56:23.761Z"
+        },
+        {
+          "status": "En preparación",
+          "title": "Estado actualizado a: En preparación",
+          "description": "Tus prendas están siendo seleccionadas y empacadas en el centro logístico.",
+          "timestamp": "2026-10-13T23:56:23.784Z"
+        }
+      ]
+    },
+    {
+      "id": "ORD-78420",
+      "trackingNumber": "ORD-78420",
+      "userId": "usr-demo1",
+      "items": [
+        {
+          "productId": "prod-1",
+          "name": "Chaqueta Denim Vintage Oversize",
+          "price": 189900,
+          "quantity": 1,
+          "size": "M",
+          "color": "Azul Clásico",
+          "image": "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=800&q=80"
+        }
+      ],
+      "subtotal": 189900,
+      "shippingFee": 0,
+      "total": 189900,
+      "shipping": {
+        "fullName": "Cliente Demo",
+        "email": "cliente@demo.com",
+        "phone": "310 555 1234",
+        "address": "Calle 72 # 10-34, Apto 402",
+        "city": "Bogotá D.C.",
+        "notes": "Portería 24 horas"
+      },
+      "paymentMethod": "Tarjeta de Crédito",
+      "status": "Enviado",
+      "createdAt": "2026-10-13T23:55:46.192Z",
+      "estimatedDelivery": "viernes, 16 de octubre de 2026",
+      "courier": "Coordinadora / Servientrega Express",
+      "history": [
+        {
+          "status": "Recibido",
+          "title": "Pedido recibido con éxito",
+          "description": "Hemos confirmado el pago y registrado tu compra en el sistema.",
+          "timestamp": "2026-10-13T23:55:46.192Z"
+        },
+        {
+          "status": "En preparación",
+          "title": "Prendas empacadas en bodega",
+          "description": "El paquete fue verificado y sellado con control de calidad.",
+          "timestamp": "2026-10-13T18:55:46.291Z"
+        },
+        {
+          "status": "Enviado",
+          "title": "Entregado a la empresa de transporte",
+          "description": "Guía de despacho #CO-891024 asignada a Servientrega Express.",
+          "timestamp": "2026-10-13T21:55:46.291Z"
+        }
+      ]
+    }
+  ]
+}

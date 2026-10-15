@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>VÉRTICE | Tienda de Ropa Online & Rastreo de Pedidos</title>
+  
+  <!-- SEO & Performance -->
+  <meta name="description" content="Tienda de ropa en línea con catálogo de moda, compras seguras y seguimiento de pedidos en tiempo real.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              500: '#3b82f6',
+              600: '#2563eb',
+              900: '#0f172a'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="min-h-full flex flex-col text-slate-800 antialiased pb-20 md:pb-0">
+
+  <!-- ================= TOP ANNOUNCEMENT BAR ================= -->
+  <div class="bg-slate-900 text-white text-[11px] sm:text-xs py-2 px-4 text-center font-medium tracking-wide">
+    ✨ <span class="text-amber-400 font-bold">ENVÍO GRATIS</span> en compras mayores a $150.000 | Rastreo de pedidos en tiempo real con código único
+  </div>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="sticky top-0 z-40 glass-nav border-b border-slate-200/80 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20 gap-2 sm:gap-4">
+        
+        <!-- Brand Logo -->
+        <div class="flex items-center gap-3 cursor-pointer" onclick="navigateToCatalog()">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-black text-xl shadow-md tracking-tighter">
+            V
+          </div>
+          <div>
+            <span class="text-lg sm:text-xl font-extrabold tracking-tight text-slate-900">VÉRTICE</span>
+            <span class="hidden sm:inline-block text-[10px] uppercase font-bold tracking-widest text-blue-600 block -mt-1">MODA & APPAREL</span>
+          </div>
+        </div>
+
+        <!-- Center Search Bar -->
+        <div class="flex-1 max-w-md mx-2 sm:mx-6">
+          <div class="relative">
+            <input 
+              type="text" 
+              id="global-search-input" 
+              placeholder="Buscar camisas, chaquetas, vestidos, calzado..."
+              class="w-full pl-10 pr-4 py-2 sm:py-2.5 rounded-full bg-slate-100 border border-transparent focus:border-slate-300 focus:bg-white text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-all shadow-inner"
+            />
+            <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Navigation & Actions -->
+        <div class="flex items-center gap-1.5 sm:gap-3">
+          
+          <!-- Rastrear Pedido Pill Button -->
+          <button 
+            type="button" 
+            onclick="navigateToTracking()" 
+            class="hidden md:flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-semibold text-slate-700 hover:text-blue-600 hover:bg-slate-100 transition-colors"
+          >
+            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span>Rastrear Pedido</span>
+          </button>
+
+          <!-- Guest: Iniciar Sesión / Registrarse -->
+          <div id="auth-guest-area" class="flex items-center gap-1 sm:gap-2">
+            <button 
+              type="button" 
+              onclick="openAuthModal('login')"
+              class="px-3 py-1.5 sm:px-4 sm:py-2 text-xs font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors"
+            >
+              Iniciar Sesión
+            </button>
+            <button 
+              type="button" 
+              onclick="openAuthModal('register')"
+              class="hidden sm:inline-flex px-3.5 py-2 text-xs font-semibold bg-slate-900 hover:bg-blue-600 text-white rounded-xl transition-colors shadow-sm"
+            >
+              Registrarse
+            </button>
+          </div>
+
+          <!-- Logged in: Profile Menu -->
+          <div id="auth-user-area" class="hidden flex items-center gap-2">
+            <button 
+              type="button" 
+              onclick="openMyOrdersModal()"
+              class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-800 transition-colors"
+              title="Ver mis pedidos"
+            >
+              <div class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-[11px] font-black">
+                👤
+              </div>
+              <span id="auth-user-name" class="max-w-[100px] truncate">Usuario</span>
+            </button>
+
+            <button 
+              type="button" 
+              onclick="handleLogout()"
+              class="p-2 text-slate-400 hover:text-rose-600 transition-colors rounded-lg"
+              title="Cerrar sesión"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+            </button>
+          </div>
+
+          <!-- Shopping Cart Trigger Button -->
+          <button 
+            type="button" 
+            onclick="toggleCartDrawer(true)"
+            class="relative p-2.5 sm:p-3 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 transition-all active:scale-95"
+            title="Ver carrito de compras"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            <span class="cart-counter-badge absolute -top-1 -right-1 w-5 h-5 rounded-full bg-blue-600 text-white text-[11px] font-extrabold flex items-center justify-center shadow-md animate-scale">0</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN VIEW CONTAINER ================= -->
+  <main class="flex-1">
+
+    <!-- ---------------------------------------------------- -->
+    <!-- VIEW 1: CATALOG & SHOPPING (CATÁLOGO Y TIENDA)      -->
+    <!-- ---------------------------------------------------- -->
+    <section id="view-catalog">
+      
+      <!-- HERO BANNER -->
+      <div class="relative bg-slate-900 text-white overflow-hidden py-12 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-slate-800">
+        <div class="absolute inset-0 opacity-25">
+          <img 
+            src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80" 
+            alt="Fashion Hero" 
+            class="w-full h-full object-cover object-center"
+          />
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/90 to-transparent"></div>
+
+        <div class="relative max-w-7xl mx-auto flex flex-col items-start gap-4">
+          <span class="px-3 py-1 rounded-full bg-blue-600/30 border border-blue-400/40 text-blue-300 text-xs font-bold uppercase tracking-wider">
+            Colección Nueva Temporada
+          </span>
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight max-w-2xl">
+            Moda auténtica para expresar tu propio estilo.
+          </h1>
+          <p class="text-slate-300 text-sm sm:text-base max-w-xl">
+            Prendas seleccionadas con los mejores materiales. Compra en minutos y rastrea el avance de tu entrega en tiempo real.
+          </p>
+          <div class="flex flex-wrap gap-3 pt-2">
+            <a href="#products-section" class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-bold shadow-lg shadow-blue-600/30 transition-all">
+              Explorar Catálogo
+            </a>
+            <button onclick="navigateToTracking()" class="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-semibold backdrop-blur-sm transition-all flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              <span>Consultar Pedido Existente</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- VALUE PROPOSITIONS -->
+      <div class="border-b border-slate-200 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-slate-700 text-xs font-semibold">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+              </div>
+              <div>
+                <div class="text-slate-900 font-bold">Envíos a todo el país</div>
+                <div class="text-[11px] text-slate-500 font-normal">Entrega 2-4 días hábiles</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              </div>
+              <div>
+                <div class="text-slate-900 font-bold">Pago 100% Seguro</div>
+                <div class="text-[11px] text-slate-500 font-normal">Tarjetas, PSE y Contraentrega</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <div class="text-slate-900 font-bold">Rastreo en vivo</div>
+                <div class="text-[11px] text-slate-500 font-normal">Monitorea cada etapa del pedido</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </div>
+              <div>
+                <div class="text-slate-900 font-bold">Cambios y Devoluciones</div>
+                <div class="text-[11px] text-slate-500 font-normal">30 días sin costo adicional</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCTS SECTION -->
+      <div id="products-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        
+        <!-- Filter Controls Bar -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+          
+          <!-- Category Pills -->
+          <div class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none" id="category-pills-bar">
+            <button type="button" data-category="Todos" class="category-filter-btn px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap bg-slate-900 text-white shadow-sm transition-all">Todos</button>
+            <button type="button" data-category="Hombre" class="category-filter-btn px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:border-slate-300 transition-all">Hombre</button>
+            <button type="button" data-category="Mujer" class="category-filter-btn px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:border-slate-300 transition-all">Mujer</button>
+            <button type="button" data-category="Calzado" class="category-filter-btn px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:border-slate-300 transition-all">Calzado</button>
+            <button type="button" data-category="Accesorios" class="category-filter-btn px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:border-slate-300 transition-all">Accesorios</button>
+          </div>
+
+          <!-- Secondary Filter dropdowns (Size & Sort) -->
+          <div class="flex items-center gap-3">
+            
+            <!-- Size Filter -->
+            <div class="relative">
+              <select id="filter-size" class="text-xs font-semibold bg-white border border-slate-200 text-slate-700 py-2 pl-3 pr-8 rounded-xl focus:outline-none focus:border-slate-400 cursor-pointer shadow-sm">
+                <option value="Todas">Talla: Todas</option>
+                <option value="XS">Talla XS</option>
+                <option value="S">Talla S</option>
+                <option value="M">Talla M</option>
+                <option value="L">Talla L</option>
+                <option value="XL">Talla XL</option>
+                <option value="38">Talla 38</option>
+                <option value="40">Talla 40</option>
+                <option value="42">Talla 42</option>
+              </select>
+            </div>
+
+            <!-- Sort By -->
+            <div class="relative">
+              <select id="filter-sort" class="text-xs font-semibold bg-white border border-slate-200 text-slate-700 py-2 pl-3 pr-8 rounded-xl focus:outline-none focus:border-slate-400 cursor-pointer shadow-sm">
+                <option value="default">Ordenar: Recomendados</option>
+                <option value="price_asc">Precio: Menor a Mayor</option>
+                <option value="price_desc">Precio: Mayor a Menor</option>
+                <option value="rating_desc">Mejor Calificados</option>
+                <option value="name_asc">Nombre: A - Z</option>
+              </select>
+            </div>
+
+            <span id="products-count" class="text-xs font-bold text-slate-400 whitespace-nowrap hidden sm:inline">12 productos</span>
+          </div>
+        </div>
+
+        <!-- PRODUCTS GRID (Responsive) -->
+        <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <!-- Populated dynamically via app.js -->
+        </div>
+
+        <!-- Empty search state -->
+        <div id="empty-products" class="hidden text-center py-16 px-4">
+          <div class="w-16 h-16 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <h3 class="text-base font-bold text-slate-800">No encontramos prendas con esos filtros</h3>
+          <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">Prueba buscando con otros términos o seleccionando otra categoría.</p>
+          <button 
+            type="button" 
+            onclick="document.getElementById('global-search-input').value=''; state.searchQuery=''; state.activeCategory='Todos'; fetchProducts();"
+            class="mt-4 px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-semibold hover:bg-blue-600 transition-colors"
+          >
+            Restablecer Filtros
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ---------------------------------------------------- -->
+    <!-- VIEW 2: ORDER TRACKING (SEGUIMIENTO DE PEDIDOS)      -->
+    <!-- ---------------------------------------------------- -->
+    <section id="view-tracking" class="hidden max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 animate-fade-in">
+      
+      <!-- Tracking Header & Input Card -->
+      <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-sm mb-8">
+        <div class="max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold mb-3">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
+            <span>Rastreador Oficial de Envíos</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            Consulta el estado de tu pedido en tiempo real
+          </h2>
+          <p class="text-slate-500 text-xs sm:text-sm mt-1 mb-6">
+            Ingresa el código que recibiste al completar tu compra (por ejemplo: <code class="bg-slate-100 px-1.5 py-0.5 rounded text-blue-600 font-bold">ORD-78420</code>) para ver su ubicación y fecha estimada de entrega.
+          </p>
+        </div>
+
+        <!-- Search input box -->
+        <div class="flex flex-col sm:flex-row gap-3 max-w-xl">
+          <div class="relative flex-1">
+            <input 
+              type="text" 
+              id="tracking-input" 
+              placeholder="Ingresa tu código de pedido (ej: ORD-78420)" 
+              class="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-slate-50 border border-slate-200 focus:border-blue-500 focus:bg-white text-sm font-semibold text-slate-900 placeholder-slate-400 focus:outline-none transition-all"
+            />
+            <svg class="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </div>
+          <button 
+            type="button" 
+            onclick="trackOrder()" 
+            class="px-6 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 active:scale-95 text-white text-sm font-bold shadow-md shadow-blue-500/20 transition-all flex items-center justify-center gap-2"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"/></svg>
+            <span>Consultar Estado</span>
+          </button>
+        </div>
+
+        <!-- Quick test link -->
+        <div class="mt-4 flex items-center gap-2 text-xs text-slate-500">
+          <span>💡 ¿Quieres probar ahora mismo?</span>
+          <button 
+            type="button" 
+            onclick="document.getElementById('tracking-input').value='ORD-78420'; trackOrder('ORD-78420')"
+            class="text-blue-600 font-bold hover:underline"
+          >
+            Cargar pedido de prueba (#ORD-78420)
+          </button>
+        </div>
+
+        <!-- Error box -->
+        <div id="tracking-error-box" class="hidden mt-4 p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold"></div>
+      </div>
+
+      <!-- Tracking Prompt state -->
+      <div id="tracking-empty-prompt" class="text-center py-12">
+        <div class="w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-3">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+        </div>
+        <h3 class="text-sm font-bold text-slate-800">Ningún pedido seleccionado</h3>
+        <p class="text-xs text-slate-500 max-w-sm mx-auto mt-1">Escribe tu número de pedido arriba o realiza una compra en la tienda para hacerle seguimiento.</p>
+      </div>
+
+      <!-- TRACKING RESULT CARD -->
+      <div id="tracking-result" class="hidden space-y-6 animate-fade-in">
+        
+        <!-- Header status card -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm">
+          
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-100 gap-4">
+            <div>
+              <div class="flex items-center gap-3">
+                <span class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight" id="track-order-num">#ORD-XXXXX</span>
+                <span id="track-status-badge" class="px-3.5 py-1.5 rounded-full text-xs font-bold border">Estado</span>
+              </div>
+              <div class="text-xs text-slate-500 mt-1">
+                Fecha del pedido: <strong id="track-order-date" class="text-slate-700">-</strong>
+              </div>
+            </div>
+
+            <!-- Demo simulation control button -->
+            <div class="flex items-center gap-2">
+              <button 
+                type="button" 
+                id="btn-advance-status" 
+                onclick="advanceOrderStatus()"
+                class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-blue-600 text-white text-xs font-bold shadow-md transition-all flex items-center gap-2"
+                title="Avanzar estado para demostración y evaluación"
+              >
+                <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <span>Simular siguiente estado</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Estimated Delivery Banner -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-6 bg-slate-50/80 rounded-2xl p-4 my-6 border border-slate-100">
+            <div>
+              <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Fecha estimada de entrega</div>
+              <div class="text-base font-extrabold text-blue-600 mt-0.5 capitalize" id="track-order-est">-</div>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Empresa de logística</div>
+              <div class="text-base font-extrabold text-slate-800 mt-0.5" id="track-order-courier">-</div>
+            </div>
+          </div>
+
+          <!-- Visual Stepper Progress Bar -->
+          <div id="tracking-steps-container">
+            <!-- Rendered dynamically -->
+          </div>
+
+        </div>
+
+        <!-- Tracking details grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- Column 1 & 2: Timeline history -->
+          <div class="lg:col-span-2 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm">
+            <h4 class="text-base font-bold text-slate-900 mb-6 flex items-center gap-2">
+              <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>Historial del Envío en Tiempo Real</span>
+            </h4>
+            <div id="track-timeline-history" class="space-y-2">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Column 3: Shipping & Items info -->
+          <div class="space-y-6">
+            
+            <!-- Address box -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Dirección de Destino</h4>
+              <div id="track-shipping-address" class="text-sm space-y-0.5">
+                <!-- Rendered dynamically -->
+              </div>
+            </div>
+
+            <!-- Items box -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Prendas en este paquete</h4>
+              <div id="track-items-list" class="divide-y divide-slate-100 max-h-60 overflow-y-auto">
+                <!-- Rendered dynamically -->
+              </div>
+              <div class="pt-4 mt-3 border-t border-slate-100 flex items-center justify-between text-sm">
+                <span class="font-bold text-slate-700">Total Pagado:</span>
+                <span class="font-black text-slate-900 text-base" id="track-total-val">-</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-12 border-t border-slate-800 mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center font-black text-sm">V</div>
+            <span class="text-base font-extrabold text-white">VÉRTICE</span>
+          </div>
+          <p class="text-slate-400 leading-relaxed text-xs">
+            Plataforma moderna de moda y vestuario en línea. Diseñada con estándares de alta velocidad, compatibilidad total y máxima seguridad en tus compras.
+          </p>
+        </div>
+        <div>
+          <h5 class="text-white font-bold mb-3 uppercase tracking-wider text-[11px]">Navegación</h5>
+          <ul class="space-y-2">
+            <li><a href="javascript:navigateToCatalog()" class="hover:text-white transition-colors">Catálogo de Ropa</a></li>
+            <li><a href="javascript:navigateToTracking()" class="hover:text-white transition-colors">Rastrear mi Pedido</a></li>
+            <li><a href="javascript:openMyOrdersModal()" class="hover:text-white transition-colors">Historial de Compras</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="text-white font-bold mb-3 uppercase tracking-wider text-[11px]">Requisitos Cumplidos</h5>
+          <ul class="space-y-1.5 text-slate-400">
+            <li>✓ Registro e inicio de sesión</li>
+            <li>✓ Catálogo y filtros avanzados</li>
+            <li>✓ Carrito y pago de pedidos</li>
+            <li>✓ Seguimiento paso a paso</li>
+            <li>✓ Cifrado y diseño responsive</li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="text-white font-bold mb-3 uppercase tracking-wider text-[11px]">Medios de Pago</h5>
+          <p class="mb-3 text-[11px]">Aceptamos tarjetas de crédito, débito, transferencias bancarias y pago en efectivo contra entrega.</p>
+          <div class="flex gap-2">
+            <span class="px-2.5 py-1 bg-slate-800 rounded font-semibold text-white text-[10px]">VISA</span>
+            <span class="px-2.5 py-1 bg-slate-800 rounded font-semibold text-white text-[10px]">MASTERCARD</span>
+            <span class="px-2.5 py-1 bg-slate-800 rounded font-semibold text-white text-[10px]">PSE</span>
+          </div>
+        </div>
+      </div>
+      <div class="pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
+        <div>© 2026 VÉRTICE - Tienda de Ropa Online. Todos los derechos reservados.</div>
+        <div class="text-slate-500">Sistema seguro con cifrado de contraseñas scrypt y arquitectura REST</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= MOBILE BOTTOM NAVIGATION ================= -->
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 px-4 py-2 flex items-center justify-around text-[10px] font-semibold text-slate-600 shadow-lg">
+    <button onclick="navigateToCatalog()" class="flex flex-col items-center gap-1 hover:text-blue-600 transition-colors">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+      <span>Catálogo</span>
+    </button>
+    <button onclick="navigateToTracking()" class="flex flex-col items-center gap-1 hover:text-blue-600 transition-colors">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      <span>Rastrear</span>
+    </button>
+    <button onclick="toggleCartDrawer(true)" class="relative flex flex-col items-center gap-1 hover:text-blue-600 transition-colors">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+      <span class="cart-counter-badge absolute -top-1 right-2 w-4 h-4 rounded-full bg-blue-600 text-white text-[9px] font-extrabold flex items-center justify-center">0</span>
+      <span>Carrito</span>
+    </button>
+    <button onclick="state.user ? openMyOrdersModal() : openAuthModal('login')" class="flex flex-col items-center gap-1 hover:text-blue-600 transition-colors">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+      <span>Mi Cuenta</span>
+    </button>
+  </nav>
+
+  <!-- ================= CART DRAWER ================= -->
+  <div id="cart-backdrop" onclick="toggleCartDrawer(false)" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 transition-opacity"></div>
+  <aside id="cart-drawer" class="fixed top-0 right-0 bottom-0 w-full sm:w-[420px] bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+    
+    <!-- Drawer Header -->
+    <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <svg class="w-5 h-5 text-slate-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+        <h3 class="font-extrabold text-base text-slate-900">Carrito de Compras</h3>
+      </div>
+      <button onclick="toggleCartDrawer(false)" class="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- Free shipping meter -->
+    <div class="px-5 py-3 bg-blue-50/60 border-b border-blue-100 text-xs">
+      <div id="shipping-progress-text" class="text-slate-700 mb-1.5 font-medium">
+        Agrega prendas para envío gratis
+      </div>
+      <div class="w-full h-1.5 bg-blue-200/60 rounded-full overflow-hidden">
+        <div id="shipping-progress-bar" class="h-full bg-blue-600 transition-all duration-300 w-0"></div>
+      </div>
+    </div>
+
+    <!-- Items list -->
+    <div id="cart-items-list" class="flex-1 overflow-y-auto p-5 space-y-3">
+      <!-- Populated dynamically via app.js -->
+    </div>
+
+    <!-- Empty state -->
+    <div id="cart-empty-state" class="hidden flex-1 flex flex-col items-center justify-center p-8 text-center">
+      <div class="w-16 h-16 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mb-3">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+      </div>
+      <h4 class="font-bold text-slate-800 text-sm">Tu carrito está vacío</h4>
+      <p class="text-xs text-slate-500 mt-1 max-w-xs">Encuentra las mejores prendas y accesorios en nuestro catálogo.</p>
+      <button onclick="toggleCartDrawer(false); navigateToCatalog()" class="mt-4 px-5 py-2.5 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-blue-600 transition-colors">
+        Empezar a Comprar
+      </button>
+    </div>
+
+    <!-- Drawer Footer -->
+    <div id="cart-footer" class="p-5 border-t border-slate-100 bg-slate-50/50 space-y-3">
+      <div class="space-y-1.5 text-xs">
+        <div class="flex justify-between text-slate-600">
+          <span>Subtotal:</span>
+          <span id="cart-subtotal" class="font-bold text-slate-800">$0</span>
+        </div>
+        <div class="flex justify-between text-slate-600">
+          <span>Envío:</span>
+          <span id="cart-shipping" class="font-bold text-slate-800">$0</span>
+        </div>
+        <div class="flex justify-between text-base font-extrabold text-slate-900 pt-2 border-t border-slate-200">
+          <span>Total:</span>
+          <span id="cart-total" class="text-blue-600">$0</span>
+        </div>
+      </div>
+
+      <button 
+        type="button" 
+        onclick="openCheckoutModal()" 
+        class="w-full py-3.5 px-4 rounded-2xl bg-blue-600 hover:bg-blue-700 active:scale-[0.99] text-white text-sm font-bold shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center gap-2"
+      >
+        <span>Continuar al Pago</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- ================= PRODUCT QUICK VIEW MODAL ================= -->
+  <div id="product-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fade-in">
+    <div class="relative bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-100">
+      <button onclick="closeProductModal()" class="absolute top-4 right-4 z-20 p-2 rounded-full bg-white/80 hover:bg-white text-slate-600 shadow-sm transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <div id="product-modal-content">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= CHECKOUT MODAL ================= -->
+  <div id="checkout-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fade-in">
+    <div class="bg-white rounded-3xl max-w-xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-slate-100 flex flex-col">
+      
+      <div class="p-5 border-b border-slate-100 flex items-center justify-between sticky top-0 bg-white z-10">
+        <div>
+          <h3 class="font-extrabold text-lg text-slate-900">Finalizar Compra</h3>
+          <p class="text-xs text-slate-500">Ingresa los datos para despachar tu pedido</p>
+        </div>
+        <button onclick="closeCheckoutModal()" class="p-2 text-slate-400 hover:text-slate-700">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="checkout-form" class="p-6 space-y-5">
+        
+        <!-- Contact & Shipping -->
+        <div>
+          <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">1. Datos de Entrega</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-slate-700 mb-1">Nombre completo *</label>
+              <input type="text" id="shipping-name" required placeholder="Ej: Camilo Andrés Rodríguez" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Correo electrónico *</label>
+              <input type="email" id="shipping-email" required placeholder="correo@ejemplo.com" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Teléfono / WhatsApp *</label>
+              <input type="tel" id="shipping-phone" required placeholder="310 123 4567" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-blue-500">
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-slate-700 mb-1">Dirección de entrega *</label>
+              <input type="text" id="shipping-address" required placeholder="Calle 45 # 12-34, Apto o Casa" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Ciudad / Municipio *</label>
+              <input type="text" id="shipping-city" required placeholder="Bogotá, Medellín, Cali..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Instrucciones opcionales</label>
+              <input type="text" id="shipping-notes" placeholder="Dejar en portería, etc." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-blue-500">
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment method -->
+        <div>
+          <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">2. Método de Pago</h4>
+          <div class="space-y-2">
+            <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer bg-slate-50/50">
+              <input type="radio" name="payment-method" value="Tarjeta de Crédito / Débito" checked class="text-blue-600 focus:ring-0">
+              <div class="flex-1">
+                <div class="text-xs font-bold text-slate-800">💳 Tarjeta de Crédito / Débito</div>
+                <div class="text-[11px] text-slate-500">Aceptamos Visa, MasterCard y American Express</div>
+              </div>
+            </label>
+            <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer bg-slate-50/50">
+              <input type="radio" name="payment-method" value="PSE / Transferencia Bancaria" class="text-blue-600 focus:ring-0">
+              <div class="flex-1">
+                <div class="text-xs font-bold text-slate-800">🏦 PSE / Transferencia Bancaria</div>
+                <div class="text-[11px] text-slate-500">Débito directo desde tu cuenta bancaria</div>
+              </div>
+            </label>
+            <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer bg-slate-50/50">
+              <input type="radio" name="payment-method" value="Pago Contra Entrega" class="text-blue-600 focus:ring-0">
+              <div class="flex-1">
+                <div class="text-xs font-bold text-slate-800">💵 Pago Contra Entrega</div>
+                <div class="text-[11px] text-slate-500">Pagas en efectivo al recibir tu paquete en casa</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Order summary preview -->
+        <div class="p-4 rounded-2xl bg-slate-100/70 space-y-2">
+          <div class="text-xs font-bold text-slate-700">Resumen del pedido:</div>
+          <div id="checkout-summary-items" class="divide-y divide-slate-200 max-h-32 overflow-y-auto"></div>
+          <div class="flex justify-between items-center pt-2 border-t border-slate-200 text-xs">
+            <span class="text-slate-600">Costo de Envío:</span>
+            <span id="checkout-shipping-val" class="font-bold text-slate-800">$0</span>
+          </div>
+          <div class="flex justify-between items-center text-sm font-black text-slate-900 pt-1">
+            <span>Total a Pagar:</span>
+            <span id="checkout-total-val" class="text-blue-600">$0</span>
+          </div>
+        </div>
+
+        <button 
+          type="submit" 
+          id="btn-submit-order"
+          class="w-full py-3.5 px-4 rounded-2xl bg-slate-900 hover:bg-blue-600 active:scale-[0.99] text-white text-sm font-bold shadow-lg transition-all flex items-center justify-center gap-2"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          <span>Confirmar y Realizar Pedido</span>
+        </button>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= ORDER SUCCESS MODAL ================= -->
+  <div id="order-success-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fade-in">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 text-center shadow-2xl border border-slate-100">
+      
+      <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4 animate-bounce">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+      </div>
+
+      <h3 class="text-2xl font-black text-slate-900 mb-1">¡Pedido Confirmado!</h3>
+      <p class="text-xs text-slate-500 mb-6">Hemos recibido tu compra y ya estamos preparando el paquete.</p>
+
+      <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 mb-6 text-left space-y-2">
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-slate-500">Número de Pedido:</span>
+          <span id="success-order-id" class="font-extrabold text-blue-600 text-sm">#ORD-XXXXX</span>
+        </div>
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-slate-500">Total pagado:</span>
+          <span id="success-order-total" class="font-bold text-slate-800">$0</span>
+        </div>
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-slate-500">Estado inicial:</span>
+          <span class="font-bold text-emerald-600">Recibido</span>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <button 
+          type="button" 
+          id="btn-track-success-order"
+          class="w-full py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
+          <span>Rastrear mi pedido ahora</span>
+        </button>
+        <button 
+          type="button" 
+          onclick="closeOrderSuccessModal(); navigateToCatalog();"
+          class="w-full py-2.5 px-4 rounded-xl text-slate-600 hover:bg-slate-100 text-xs font-semibold transition-colors"
+        >
+          Volver a la tienda
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= AUTH MODAL (LOGIN & REGISTER) ================= -->
+  <div id="auth-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fade-in">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 sm:p-8 shadow-2xl border border-slate-100">
+      
+      <div class="flex items-center justify-between mb-6">
+        <h3 id="auth-modal-title" class="font-extrabold text-xl text-slate-900">Iniciar sesión</h3>
+        <button onclick="closeAuthModal()" class="p-1.5 text-slate-400 hover:text-slate-700">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Quick Demo Login Button -->
+      <div class="mb-4">
+        <button 
+          type="button" 
+          onclick="fillDemoLogin()" 
+          class="w-full py-2 px-3 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-900 text-xs font-bold transition-all flex items-center justify-center gap-1.5"
+        >
+          <span>⚡ Iniciar con cuenta Demo (1-Click)</span>
+        </button>
+      </div>
+
+      <!-- 1. Form Login -->
+      <div id="login-form-container">
+        <form id="form-login" class="space-y-3.5">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Correo electrónico</label>
+            <input type="email" id="login-email" required placeholder="tu@correo.com" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Contraseña</label>
+            <input type="password" id="login-password" required placeholder="••••••••" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-blue-500">
+          </div>
+          <button type="submit" class="w-full py-3 rounded-xl bg-slate-900 hover:bg-blue-600 text-white text-xs font-bold transition-all shadow-md mt-2">
+            Entrar a mi cuenta
+          </button>
+        </form>
+
+        <div class="mt-4 pt-4 border-t border-slate-100 text-center text-xs text-slate-500">
+          ¿No tienes una cuenta aún?
+          <button onclick="toggleAuthMode('register')" class="text-blue-600 font-bold hover:underline ml-1">Regístrate aquí</button>
+        </div>
+      </div>
+
+      <!-- 2. Form Register -->
+      <div id="register-form-container" class="hidden">
+        <form id="form-register" class="space-y-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Nombre completo</label>
+            <input type="text" id="register-name" required placeholder="Tu Nombre" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Correo electrónico</label>
+            <input type="email" id="register-email" required placeholder="tu@correo.com" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Contraseña (mínimo 6 carácteres)</label>
+            <input type="password" id="register-password" required minlength="6" placeholder="••••••••" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Confirmar contraseña</label>
+            <input type="password" id="register-password-confirm" required minlength="6" placeholder="••••••••" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-blue-500">
+          </div>
+          <button type="submit" class="w-full py-3 rounded-xl bg-slate-900 hover:bg-blue-600 text-white text-xs font-bold transition-all shadow-md mt-2">
+            Crear mi cuenta
+          </button>
+        </form>
+
+        <div class="mt-4 pt-4 border-t border-slate-100 text-center text-xs text-slate-500">
+          ¿Ya tienes cuenta registrada?
+          <button onclick="toggleAuthMode('login')" class="text-blue-600 font-bold hover:underline ml-1">Inicia sesión</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= MY ORDERS MODAL ================= -->
+  <div id="my-orders-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fade-in">
+    <div class="bg-white rounded-3xl max-w-lg w-full max-h-[85vh] overflow-y-auto p-6 shadow-2xl border border-slate-100">
+      
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-4">
+        <h3 class="font-extrabold text-lg text-slate-900">Mis Pedidos Realizados</h3>
+        <button onclick="closeMyOrdersModal()" class="p-1.5 text-slate-400 hover:text-slate-700">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div id="my-orders-list" class="space-y-3">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div id="my-orders-empty" class="hidden text-center py-8">
+        <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-2">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+        </div>
+        <div class="text-xs font-bold text-slate-700">Aún no tienes pedidos registrados</div>
+        <p class="text-[11px] text-slate-500 mt-0.5">Tus compras aparecerán aquí para fácil consulta y seguimiento.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= TOAST NOTIFICATIONS CONTAINER ================= -->
+  <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+  <!-- App Script -->
+  <script src="/js/app.js"></script>
+</body>
+</html>
